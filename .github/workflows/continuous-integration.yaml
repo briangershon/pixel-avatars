@@ -55,18 +55,10 @@ jobs:
       run: yarn && yarn prettier && git restore yarn.lock
       working-directory: ./contract
 
-    # test if there are no prettier changes to avoid error of trying to commit when no changes
-    - name: Commit files
-      run: |
-        git config --global user.email "Developer-DAO@users.noreply.github.com"
-        git config --global user.name "Github Actions"
-        if test -n "$(git status --porcelain --untracked-files=no)"; then git commit -m "Add prettier changes" -a; fi
-
-    - name: git status
-      run: git status
-
-    - name: Push changes
-      uses: ad-m/github-push-action@master
+    # commit and push changes
+    - name: Commit style fixes
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+        commit_message: Code style fixes
+        commit_user_name: Github Action
+        ref: ${{ github.head_ref }}
