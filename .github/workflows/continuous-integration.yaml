@@ -7,8 +7,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@master
@@ -36,8 +34,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
-        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+        ref: ${{ github.head_ref }}
 
     # run prettier, and also ensure any lock file changes are reverted
     - name: Prettify web-client
