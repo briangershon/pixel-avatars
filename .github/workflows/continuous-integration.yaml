@@ -4,19 +4,16 @@ jobs:
   tests:
     name: Run CI
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ["16.x"]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Set Node.js ${{ matrix.node }}
+      - name: Setup Node.js
         uses: actions/setup-node@master
         with:
-          node-version: ${{ matrix.node }}
+          node-version: "16.x"
 
       - name: node version
         run: node --version
